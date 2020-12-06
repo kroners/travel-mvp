@@ -1,5 +1,5 @@
 from django.db import models
-from services.models import Language, TravelerType, Activity, RoomType, Service
+from services.models import Language, TravelerType, Activity, RoomType, Service, ServiceType, FoodService, TripProfile
 from destinations.models import Destination
 
 # Create your models here.
@@ -59,6 +59,17 @@ class ProgramDestination(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-class ProgramServices(model.Models):
+class ProgramServices(models.Model):
     servicio = models.ForeignKey(Service, on_delete=models.CASCADE)
     programa = models.ForeignKey(Program, related_name="servicios", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+class ProgramDetails(models.Model):
+    tipo_servicio = models.ForeignKey(ServiceType, on_delete=models.CASCADE)
+    alimentacion = models.ForeignKey(FoodService, on_delete=models.CASCADE)
+    habitacion = models.ForeignKey(RoomType, on_delete=models.CASCADE)
+    perfil_viaje = models.ForeignKey(TripProfile, on_delete=models.CASCADE)
+    programa = models.ForeignKey(Program, related_name="detalles_servicio", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
