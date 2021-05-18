@@ -4,6 +4,7 @@ from destinations import views
 
 urlpatterns = [
     path('countries/', views.CountryList.as_view()),
+    path('cities/', views.CityList.as_view()),
     path('destinations/', views.DestinationList.as_view()),
     path('destinations/<int:pk>/', views.DestinationDetail.as_view()),
 ]

@@ -220,7 +220,7 @@ logs
 node_modules
 bower_components
 
-mvp-web/node_modules
+mvp-web
 
 *.sublime*
 
