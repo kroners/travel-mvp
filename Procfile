@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath danielMVP danielMVP.wsgi
+web: gunicorn danielMVP.wsgi --log-file=-
