@@ -16,7 +16,6 @@ class ProgramList(generics.ListAPIView):
         # An example of all the queryset would be programs/?destinos=1,10&duracion=5&precio_min=100&precio_max=1000&
         # adultos=1&ninos=1&bebes=1&servicios=2,3&tipo_servicio=2&tipo_hospedaje=3&tipo_habitacion=2&alimentacion=3&
         # actividades=2,4,5,7,8&perfil_viaje=3&idioma=1
-        print('queryset')
         programs = Program.objects.all()
         # keywords = []
 
@@ -57,8 +56,7 @@ class ProgramList(generics.ListAPIView):
         
         if tipo_servicio is not None:
             programs = programs.filter()
-        
-        print(programs)
+
         return programs
         # serializer = ProgramSerializer(programs, many=True)
         # print(serializer)
@@ -72,7 +70,6 @@ class ProgramList(generics.ListAPIView):
 
 class ProgramDetail(APIView):
     def get_object(self, pk):
-        print(pk)
         try:
             return Program.objects.get(pk=pk)
         except Program.DoesNotExist:

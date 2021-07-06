@@ -15,7 +15,6 @@ class DestinationList(APIView):
     def get_queryset(self):
         # Define search word for query
         destino = self.request.query_params.get('destino', None)
-        print(destino)
         destinations = Destination.objects.all()
 
         if destino is not None:
@@ -30,9 +29,7 @@ class DestinationList(APIView):
 
     # Create a new destination
     def post(self, request, format=None):
-        print(request.data)
         serializer = DestinationSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -80,7 +77,6 @@ class CityList(APIView):
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        print(request.data)
         serializer = CitySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
