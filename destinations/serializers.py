@@ -4,7 +4,7 @@ from .models import (
     City,
     Region,
     Country,
-    Destination
+    Destination,
 )
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -32,6 +32,8 @@ class RegionSerializer(serializers.ModelSerializer):
             'nombre'
         ]
 
+
+
 class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Destination
@@ -47,4 +49,5 @@ class DestinationSerializer(serializers.ModelSerializer):
         self.fields['pais'] = CountrySerializer(many=False, read_only=True)
         self.fields['ciudad'] = CitySerializer(many=False, read_only=True)
         self.fields['region'] = RegionSerializer(many=False, read_only=True)
+        
         return super(DestinationSerializer, self).to_representation(instance)

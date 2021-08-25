@@ -21,9 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+SECRET_KEY = 'key'
+EMAIL_HOST_USER = 'ranses.lacruz@gmail.com'
+EMAIL_HOST_PASSWORD = '19894500.r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'services',
     'accounts',
     'programs',
+    'prueba_POST',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'travelmvp',
         'USER': 'postgres',
-        'PASSWORD': 'LoY74z5yo//',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
     }

@@ -5,6 +5,7 @@ from programs import views
 urlpatterns = [
     path('programs/', views.ProgramList.as_view()),
     path('programs/<int:pk>/', views.ProgramDetail.as_view()),
+    
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
