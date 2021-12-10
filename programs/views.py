@@ -4,6 +4,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
+from decimal import Decimal as D
 from .models import Program
 from .serializers import ProgramSerializer
 
@@ -21,8 +22,8 @@ class ProgramList(generics.ListAPIView):
 
         destinos = self.request.query_params.getlist('destinos', None)
         duracion = self.request.query_params.get('duracion', None)
-        precio_min = self.request.query_params.get('precio_min', 0)
-        precio_max = self.request.query_params.get('precio_max', None)
+        precio_min = D(int(self.request.query_params.get('precio_min', 0)))
+        precio_max = D(int(self.request.query_params.get('precio_max', 0)))
         adultos = self.request.query_params.get('adultos', None)
         ninos = self.request.query_params.get('ninos', None)
         bebes = self.request.query_params.get('bebes', None)
@@ -36,13 +37,14 @@ class ProgramList(generics.ListAPIView):
         idioma = self.request.query_params.get('idioma', None)
 
         if destinos is not None:
-            programs = programs.filter(destinos__id__in=destinos)
+            formated_destinos = ','.join(map(str, destinos))
+            programs = programs.filter(destinos__id__in=formated_destinos)
         
         if duracion is not None:
             programs = programs.filter(duracion=duracion)
         
         if precio_max is not None:
-            programs = programs.filter(precio__range=(precio_min, precio_max))
+            programs = programs.filter(precios__precio__range=(precio_min, precio_max))
         
         if adultos is not None:
             programs = programs.filter(personas__tipoPersona__id=1).filter(personas__cantidad=adultos)
@@ -52,11 +54,30 @@ class ProgramList(generics.ListAPIView):
             programs = programs.filter(personas__tipoPersona__id=3).filter(personas__cantidad=bebes)
         
         if servicios is not None:
-            programs = programs.filter()
+            programs = programs.filter(servicios__servicio__id__in=servicios)
         
         if tipo_servicio is not None:
             programs = programs.filter()
-
+        
+        if tipo_hospedaje is not None:
+            programs = programs.filter(detalles_servicio__habitacion__hotel__id=tipo_hospedaje)
+        
+        if tipo_habitacion is not None:
+            programs = programs.filter(detalles_servicio__habitacion__id=tipo_habitacion)
+        
+        if alimentacion is not None:
+            programs = programs.filter(detalles_servicio__alimentacion__id=alimentacion)
+        
+        if actividades is not None:
+            programs = programs.filter(actividades__actividad__id__in=actividades)
+        
+        if perfil_viaje is not None:
+            programs = programs.filter(detalles_servicio__perfil_viaje__id=perfil_viaje)
+        
+        if idioma is not None:
+            programs = programs.filter(idioma__id=idioma)
+        
+        
         return programs
         # serializer = ProgramSerializer(programs, many=True)
         # print(serializer)
